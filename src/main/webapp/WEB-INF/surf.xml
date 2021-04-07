@@ -108,6 +108,7 @@
                <loader-trace-enabled>false</loader-trace-enabled>
                <messages-object>Alfresco</messages-object>
                <packages>
+                   <package name="tutorial" location="js/tutorial"/>
                    <!-- Add custom packages here -->
                </packages>
             </dojo-pages>

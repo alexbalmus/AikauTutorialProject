@@ -106,6 +106,9 @@ model.jsonModel = {
                   }
                },
                {
+                  name: "tutorial/HelloWorld"
+               },
+               {
                  name: "alfresco/buttons/AlfButton",
                  config: {
                    label: "Go to parent folder",
