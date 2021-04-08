@@ -1,5 +1,22 @@
 model.jsonModel = {
    services: [
+      // "alfresco/services/PreferenceService",
+      {
+         name: "alfresco/services/LoggingService",
+         // This service is configured to use custom logging settings.
+         // Instead, to use the current user’s logging preferences from the Alfresco Repository,
+         // remove or comment out the following config element and uncomment the line above to
+         // enable the PreferenceService.
+         config: {
+            loggingPreferences: {
+               enabled: true,
+               all: true,
+               // warn: true,
+               // error: true,
+               filter: "tutorial/HelloWorld(.*)"
+            }
+         }
+      },
       "alfresco/services/NavigationService",
       "alfresco/services/LogoutService",
       "alfresco/services/DocumentService",
@@ -75,6 +92,9 @@ model.jsonModel = {
                // Add more widgets here !!!
             ]
          }
+      },
+      {
+          name: "alfresco/logging/SubscriptionLog"
       }
    ]
 };
