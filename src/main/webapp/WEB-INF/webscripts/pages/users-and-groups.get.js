@@ -140,8 +140,8 @@ model.jsonModel = {
                                                                             name: "alfresco/lists/AlfList",
                                                                             config: {
                                                                                 pubSubScope: "GROUP_USERS_",
+                                                                                // generatePubSubScope: true,
                                                                                 waitForPageWidgets: false,
-                                                                                generatePubSubScope: true,
                                                                                 loadDataPublishTopic: "ALF_CRUD_GET_ALL",
                                                                                 loadDataPublishPayload: {
                                                                                     url: "api/groups/{shortName}/children?sortBy=displayName&maxItems=50&skipCount=0"
