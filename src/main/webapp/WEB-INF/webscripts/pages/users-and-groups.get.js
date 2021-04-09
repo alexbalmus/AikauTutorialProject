@@ -69,13 +69,14 @@ model.jsonModel = {
             }
         },
         {
-            name: "alfresco/lists/AlfList",
+            name: "alfresco/lists/AlfSortablePaginatedList",
             config: {
-                loadDataPublishTopic: "ALF_CRUD_GET_ALL",
-                loadDataPublishPayload: {
-                    url: "api/groups?sortBy=displayName&zone=APP.DEFAULT"
-                },
+                loadDataPublishTopic: "TUTORIAL_GET_GROUPS",
                 itemsProperty: "data",
+                sortField: "shortName",
+                currentPageSize: 5,
+                startIndexProperty: "paging.skipCount",
+                totalResultsProperty: "paging.totalItems",
                 widgets: [
                     {
                         name: "alfresco/lists/views/AlfListView",
@@ -85,13 +86,17 @@ model.jsonModel = {
                                 {
                                     name: "alfresco/lists/views/layouts/HeaderCell",
                                     config: {
-                                        label: "Group Identifier"
+                                        label: "Group Identifier",
+                                        sortable: true,
+                                        sortValue: "shortName"
                                     }
                                 },
                                 {
                                     name: "alfresco/lists/views/layouts/HeaderCell",
                                     config: {
-                                        label: "Display Name"
+                                        label: "Display Name",
+                                        sortable: true,
+                                        sortValue: "displayName"
                                     }
                                 },
                                 {
@@ -159,7 +164,7 @@ model.jsonModel = {
                                                                             }
                                                                         },
                                                                         {
-                                                                            name: "alfresco/lists/AlfList",
+                                                                            name: "alfresco/lists/AlfSortablePaginatedList",
                                                                             config: {
                                                                                 pubSubScope: "GROUP_USERS_",
                                                                                 // generatePubSubScope: true,
@@ -286,6 +291,13 @@ model.jsonModel = {
                         }
                     }
                 ]
+            }
+        },
+        {
+            name: "alfresco/lists/Paginator",
+            config: {
+                documentsPerPage: 5,
+                pageSizes: [5,10,20]
             }
         }
     ]
