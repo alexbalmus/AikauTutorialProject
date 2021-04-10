@@ -487,6 +487,256 @@ model.jsonModel = {
                                         title: "Manage Users",
                                         description: "Create, edit and delete users. ",
                                         widgets:[
+                                            {
+                                                name: "alfresco/buttons/AlfButton",
+                                                config: {
+                                                    label: "Create New User",
+                                                    publishTopic: "ALF_CREATE_FORM_DIALOG_REQUEST",
+                                                    publishPayload: {
+                                                        dialogTitle: "Create User",
+                                                        dialogConfirmationButtonTitle: "Create",
+                                                        dialogCancellationButtonTitle: "Cancel",
+                                                        formSubmissionTopic: "ALF_CRUD_CREATE",
+                                                        // formSubmissionTopic: "TUTORIAL_CREATE_GROUP",
+                                                        formSubmissionPayloadMixin: {
+                                                            url: 'api/people',
+                                                            pubSubScope: 'MANAGE_USERS_'
+                                                        },
+                                                        fixedWidth: true,
+                                                        widgets: [
+                                                            {
+                                                                name: "alfresco/forms/controls/TextBox",
+                                                                config: {
+                                                                    fieldId: "USERNAME",
+                                                                    label: "Username",
+                                                                    name: "userName",
+                                                                    description: "Enter a unique username. Only alphanumeric characters are allowed.",
+                                                                    requirementConfig: {
+                                                                        initialValue: true
+                                                                    },
+                                                                    validationConfig: [
+                                                                        {
+                                                                            validation: "regex",
+                                                                            regex: "^[A-Za-z0-9]+$",
+                                                                            errorMessage: "Alphanumeric characters only."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                name: "alfresco/forms/controls/TextBox",
+                                                                config: {
+                                                                    fieldId: "FIRSTNAME",
+                                                                    label: "First Name",
+                                                                    name: "firstName",
+                                                                    description: "Enter the first name. Only letters are allowed.",
+                                                                    requirementConfig: {
+                                                                        initialValue: true
+                                                                    },
+                                                                    validationConfig: [
+                                                                        {
+                                                                            validation: "regex",
+                                                                            regex: "^[A-Za-z]+$",
+                                                                            errorMessage: "Letters only."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                name: "alfresco/forms/controls/TextBox",
+                                                                config: {
+                                                                    fieldId: "LASTNAME",
+                                                                    label: "Last Name",
+                                                                    name: "lastName",
+                                                                    description: "Enter the last name. Only letters are allowed.",
+                                                                    requirementConfig: {
+                                                                        initialValue: true
+                                                                    },
+                                                                    validationConfig: [
+                                                                        {
+                                                                            validation: "regex",
+                                                                            regex: "^[A-Za-z]+$",
+                                                                            errorMessage: "Letters only."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                name: "alfresco/forms/controls/TextBox",
+                                                                config: {
+                                                                    fieldId: "EMAIL",
+                                                                    label: "Email",
+                                                                    name: "email",
+                                                                    // description: "Enter the email address.",
+                                                                    requirementConfig: {
+                                                                        initialValue: true
+                                                                    },
+                                                                    validationConfig: [
+                                                                        {
+                                                                            validation: "regex",
+                                                                            regex: "^[^@]+@[^\.]+\..+$",
+                                                                            errorMessage: "Email format only."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                name: "alfresco/forms/controls/Password",
+                                                                config: {
+                                                                    fieldId: "PASSWORD",
+                                                                    label: "Password",
+                                                                    name: "password",
+                                                                    // description: "Enter the user's password.",
+                                                                    requirementConfig: {
+                                                                        initialValue: true
+                                                                    }
+                                                                }
+                                                            },
+                                                            {
+                                                                name: "alfresco/forms/controls/Password",
+                                                                config: {
+                                                                    fieldId: "CONFIRMPASSWORD",
+                                                                    label: "Confirm Password",
+                                                                    // name: "password",
+                                                                    // description: "Confirm password.",
+                                                                    confirmationTargetId: "PASSWORD",
+                                                                    confirmationErrorMessage: "Passwords don't match.",
+                                                                    requirementConfig: {
+                                                                        initialValue: true
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                name: "alfresco/lists/AlfList",
+                                                config: {
+                                                    pubSubScope: "MANAGE_USERS_",
+                                                    // generatePubSubScope: true,
+                                                    loadDataPublishTopic: "ALF_CRUD_GET_ALL",
+                                                    loadDataPublishPayload: {
+                                                        url: "api/people?filter="
+                                                    },
+                                                    itemsProperty: "people",
+                                                    widgets: [
+                                                        {
+                                                            name: "alfresco/lists/views/AlfListView",
+                                                            config: {
+                                                                additionalCssClasses: "bordered",
+                                                                widgetsForHeader: [
+                                                                    {
+                                                                        name: "alfresco/lists/views/layouts/HeaderCell",
+                                                                        config: {
+                                                                            label: "User Name"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        name: "alfresco/lists/views/layouts/HeaderCell",
+                                                                        config: {
+                                                                            label: "First Name",
+                                                                            sortable: true,
+                                                                            sortValue: "firstName"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        name: "alfresco/lists/views/layouts/HeaderCell",
+                                                                        config: {
+                                                                            label: "Last Name",
+                                                                            sortable: true,
+                                                                            sortValue: "lastName"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        name: "alfresco/lists/views/layouts/HeaderCell",
+                                                                        config: {
+                                                                            label: "Actions"
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                widgets: [
+                                                                    {
+                                                                        name: "alfresco/lists/views/layouts/Row",
+                                                                        config: {
+                                                                            widgets: [
+                                                                                {
+                                                                                    name: "alfresco/lists/views/layouts/Cell",
+                                                                                    config: {
+                                                                                        additionalCssClasses: "mediumpad",
+                                                                                        widgets: [
+                                                                                            {
+                                                                                                name: "alfresco/renderers/Property",
+                                                                                                config: {
+                                                                                                    propertyToRender: "userName"
+                                                                                                }
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    name: "alfresco/lists/views/layouts/Cell",
+                                                                                    config: {
+                                                                                        additionalCssClasses: "mediumpad",
+                                                                                        widgets: [
+                                                                                            {
+                                                                                                name: "alfresco/renderers/Property",
+                                                                                                config: {
+                                                                                                    propertyToRender: "firstName"
+                                                                                                }
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    name: "alfresco/lists/views/layouts/Cell",
+                                                                                    config: {
+                                                                                        additionalCssClasses: "mediumpad",
+                                                                                        widgets: [
+                                                                                            {
+                                                                                                name: "alfresco/renderers/Property",
+                                                                                                config: {
+                                                                                                    propertyToRender: "lastName"
+                                                                                                }
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                },
+                                                                                {
+                                                                                    name: "alfresco/lists/views/layouts/Cell",
+                                                                                    config: {
+                                                                                        additionalCssClasses: "mediumpad",
+                                                                                        widgets: [
+                                                                                            {
+                                                                                                name: "alfresco/renderers/PublishAction",
+                                                                                                config: {
+                                                                                                    iconClass: "delete-16",
+                                                                                                    publishTopic: "ALF_CRUD_DELETE",
+                                                                                                    publishPayloadType: "PROCESS",
+                                                                                                    publishPayloadModifiers: ["processCurrentItemTokens"],
+                                                                                                    publishPayload: {
+                                                                                                        url: "api/people/{userName}",
+                                                                                                        requiresConfirmation: true,
+                                                                                                        confirmationTitle: "Delete {userName}?",
+                                                                                                        confirmationPrompt: "Are you sure you want to delete {userName}?",
+                                                                                                        pubSubScope: 'MANAGE_USERS_'
+                                                                                                    },
+                                                                                                    publishPayloadItemMixin: true,
+                                                                                                    publishGlobal: true
+                                                                                                }
+                                                                                            }
+                                                                                        ]
+                                                                                    }
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
                                         ]
                                     }
                                 }
